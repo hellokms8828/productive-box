@@ -1,4 +1,4 @@
-name: Update gist
+name: Update gist?
 on:
   repository_dispatch:
     types: [build-event]
