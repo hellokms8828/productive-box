@@ -1,20 +1,16 @@
-name: Update GitHub Stats Gist
+name: Update gist
 on:
-    workflow_dispatch:
-    schedule:
-        - cron: '0 */12 * * *'
-    push:
-        branches: master
+  repository_dispatch:
+    types: [build-event]
+  schedule:
+    - cron: "0 0 * * *"
 jobs:
-    run:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/setup-node@master
-              with:
-                  node-version: 16
-            - run: npx github-stats-box@1
-              env:
-                  GH_TOKEN: ${{ secrets.GH_TOKEN }}
-                  GIST_ID: ${{ secrets.GIST_ID }} 
-                  ALL_COMMITS: true
-                  K_FORMAT: false
+  update-gist:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update gist
+        uses: maxam2017/productive-box@master
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GIST_ID: ${{ secrets.GIST_ID }}
+          TIMEZONE: Asia/Seoul
